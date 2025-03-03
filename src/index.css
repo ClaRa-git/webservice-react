@@ -27,3 +27,7 @@
         }
     }
 }
+
+.title-h1{
+    @apply text-white text-3xl font-bold mb-6;
+}
