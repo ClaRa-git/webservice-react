@@ -1,1 +1,29 @@
 @import "tailwindcss";
+
+@theme{
+    /* Charte graphique */
+    --color-black: rgba(24, 24, 24, 1);
+    --color-black_05: rgba(24, 24, 24, 0.5);
+    --color-white: rgba(245, 245, 245, 1);
+    --color-white_05: rgba(245, 245, 245, 0.5);
+    --color-white_01: rgba(245, 245, 245, 0.1);
+    --color-green: rgba(30, 215, 96, 1);
+    --color-green_08: rgba(30, 215, 96, 0.8);
+    --color-green_06: rgba(30, 215, 96, 0.6);
+    --color-green_top: rgba(26, 173, 78, 1);
+
+    /* Animations */
+    --animate-slideup: slide-up 1s ease-in-out;
+    --animate-slideup2: slide-up 0.5s ease-in-out;
+
+    @keyframes slide-up {
+        0% {
+            transform: translateY(25%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+}
