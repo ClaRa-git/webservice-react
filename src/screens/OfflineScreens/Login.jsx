@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomInput from '../../components/Ui/CustomInput';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ButtonLoader from '../../components/Loader/ButtonLoader';
+import { useAuthContext } from '../../contexts/AuthContext';
+import useSubscriptionCheck from '../../hooks/useSubscriptionCheck';
+import axios from 'axios';
+import { API_ROOT } from '../../constants/apiConstant';
 
 const Login = () => {
 
@@ -10,11 +14,49 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState(null);
+
+  // Récupération de la méthode signIn depuis authContext
+  const { signIn } = useAuthContext();
+  const navigate = useNavigate();
+
+  // Vérification des abonnements de l'utilisateur
+  const { isSubscribed, loading: checkSubscription } = useSubscriptionCheck();
+
+  useEffect(() => {
+    if (user && !checkSubscription) {
+      if (isSubscribed) {
+        navigate('/');
+      } else {
+        navigate('/subscription');
+      }
+    }
+  }, [user, isSubscribed, checkSubscription, navigate]);  
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Empêche d'envoyer le formulaire
-    console.log('Email :', email);
-    console.log('Password :', password);
+    setIsLoading(true); // Active le loader
+    setErrorMessage(''); // Réinitialise le message d'erreur
+
+    try {
+      const response = await axios.post(`${API_ROOT}/login`, {email, password});
+      console.log(response.data);
+
+      if(response.data?.email) {
+        const loggedInUser = response.data;
+        signIn(loggedInUser);
+        loggedInUser.isSubscribed = response.data?.isSubscribed;
+        setUser(loggedInUser);
+      } else {
+        setErrorMessage('Email ou mot de passe incorrect');
+      }
+
+    } catch (error) {
+      setErrorMessage('Erreur lors de la connexion');
+      console.log(`Erreur lors de la connexion : ${error}`);
+    } finally {
+      setIsLoading(false); // Désactive le loader
+    }
   }
 
   return (

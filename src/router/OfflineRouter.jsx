@@ -25,7 +25,7 @@ const OfflineRouter = createBrowserRouter([
                 element: <Register />
             },
             {
-                path : "/subscribe",
+                path : "/subscription",
                 element: <Subscription />
             },
             {
