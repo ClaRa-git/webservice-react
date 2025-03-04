@@ -21,7 +21,7 @@ const Register = () => {
 
   return (
     <div className='flex flex-col items-center justify-center w-full px-6 py-10'>
-      <h1 className='title-h1'>Connectez-vous !</h1>
+      <h1 className='title-h1'>Inscrivez-vous !</h1>
       <form onSubmit={handleSubmit} className='w-full max-w-md bg-gray-900 p-8 rounded-xl shadow-lg space-y-5'>
         <CustomInput 
           state={email} 
@@ -44,7 +44,7 @@ const Register = () => {
         {errorMessage && <p className='text-red-500 text-center'>{errorMessage}</p>}
 
         <p className="text-gray-400">
-          Vous avez déjà un compte ? <Link to="/" className="text-green font-bold hover:text-green_top">Connectez-vous</Link>
+          Vous avez déjà un compte ? <Link to="/" className="text-green font-bold hover:text-green_top">Connectez-vous !</Link>
         </p>
 
         {/* Bouton de soumission */}
