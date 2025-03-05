@@ -9,7 +9,7 @@ const useSubscriptionCheck = (userInfo) => {
         const verifySubscription = async () => {
             if(userInfo?.isSubscribed !== undefined) {
                 setIsSubscribed(userInfo.isSubscribed);
-            } else if (userInfo &&  userInfo?.email ) {
+            } else if (userInfo &&  userInfo.email ) {
                 const subscriptionValid = await checkSubscription(userInfo.email);
                 setIsSubscribed(subscriptionValid);
             } else {

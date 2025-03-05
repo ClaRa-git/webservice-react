@@ -21,17 +21,17 @@ const Login = () => {
   const navigate = useNavigate();
 
   // Vérification des abonnements de l'utilisateur
-  const { isSubscribed, loading: checkSubscription } = useSubscriptionCheck();
+  const { isSubscribed, loading: checkingSubscription } = useSubscriptionCheck();
 
   useEffect(() => {
-    if (user && !checkSubscription) {
+    if (user && !checkingSubscription) {
       if (isSubscribed) {
         navigate('/');
       } else {
         navigate('/subscription');
       }
     }
-  }, [user, isSubscribed, checkSubscription, navigate]);  
+  }, [user, isSubscribed, checkingSubscription, navigate]);  
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Empêche d'envoyer le formulaire
@@ -43,7 +43,11 @@ const Login = () => {
       console.log(response.data);
 
       if(response.data?.email) {
-        const loggedInUser = response.data;
+        const loggedInUser = {
+          userId: response.data.id,
+          email: response.data.email,
+          nickname: response.data.nickname,
+        };
         signIn(loggedInUser);
         loggedInUser.isSubscribed = response.data?.isSubscribed;
         setUser(loggedInUser);

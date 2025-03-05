@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import CustomInput from '../../components/Ui/CustomInput';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ButtonLoader from '../../components/Loader/ButtonLoader';
+import { useAuthContext } from '../../contexts/AuthContext';
+import axios from 'axios';
+import { API_ROOT } from '../../constants/apiConstant';
 
 const Register = () => {
 
@@ -11,12 +14,41 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const  {signIn} = useAuthContext();
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Empêche d'envoyer le formulaire
-    console.log('Email :', email);
-    console.log('Password :', password);
-    console.log('Nickname :', nickname);
+    setIsLoading(true); // Active le loader
+    setErrorMessage(''); // Remise à zéro du message d'erreur
+
+    try {
+      const response = await axios.post(`${API_ROOT}/register`, {
+        email,
+        password,
+        nickname
+      });
+
+      if(response.data?.email) {
+        const loggedInUser = {
+          userId: response.data.id,
+          email: response.data.email,
+          nickname: response.data.nickname,
+        };
+
+        signIn(loggedInUser);
+        navigate('/subscription');
+      } else {
+        console.log(`Erreur lors de l'inscription : ${response.data}`);
+      }
+
+    } catch (error) {
+      console.log(`Erreur de requête lors de l'inscription : ${error}`);
+    } finally {
+      setIsLoading(false); // Désactive le loader
+    }
+
   }
 
   return (

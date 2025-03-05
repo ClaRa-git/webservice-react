@@ -25,7 +25,7 @@ const AuthContextProvider = ({children}) => {
     const signIn = async (user) => {
         try {
             // Remplissage des états avec les données de l'utilisateur
-            setUserId(user.id);
+            setUserId(user.userId);
             setEmail(user.email);
             setNickname(user.nickname);
 
