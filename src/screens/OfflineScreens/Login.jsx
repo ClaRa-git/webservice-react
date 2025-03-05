@@ -42,8 +42,10 @@ const Login = () => {
       const response = await axios.post(`${API_ROOT}/login`, {email, password});
       console.log(response.data);
 
-      if(response.data?.email) {
-        const loggedInUser = {
+      if(response.data?.success === false) {
+        setErrorMessage(response.data.message);
+      } else {
+          const loggedInUser = {
           userId: response.data.id,
           email: response.data.email,
           nickname: response.data.nickname,
@@ -51,8 +53,6 @@ const Login = () => {
         signIn(loggedInUser);
         loggedInUser.isSubscribed = response.data?.isSubscribed;
         setUser(loggedInUser);
-      } else {
-        setErrorMessage('Email ou mot de passe incorrect');
       }
 
     } catch (error) {

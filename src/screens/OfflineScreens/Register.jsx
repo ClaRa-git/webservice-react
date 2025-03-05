@@ -30,7 +30,9 @@ const Register = () => {
         nickname
       });
 
-      if(response.data?.email) {
+      if(response.data?.success === false) {
+        setErrorMessage(response.data.message);
+      } else {
         const loggedInUser = {
           userId: response.data.id,
           email: response.data.email,
@@ -39,8 +41,6 @@ const Register = () => {
 
         signIn(loggedInUser);
         navigate('/subscription');
-      } else {
-        console.log(`Erreur lors de l'inscription : ${response.data}`);
       }
 
     } catch (error) {
