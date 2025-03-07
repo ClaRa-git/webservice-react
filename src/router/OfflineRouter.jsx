@@ -5,6 +5,7 @@ import Login from "../screens/OfflineScreens/Login";
 import Register from "../screens/OfflineScreens/Register";
 import PaymentCancel from "../screens/OfflineScreens/PaymentCancel";
 import Subscription from "../screens/OfflineScreens/Subscription";
+import PaymentSuccess from "../screens/OfflineScreens/PaymentSuccess";
 
 const OfflineRouter = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const OfflineRouter = createBrowserRouter([
             {
                 path : "/cancel",
                 element: <PaymentCancel />
+            },
+            {
+                path : "/success",
+                element: <PaymentSuccess />
             }
         ],
     }

@@ -46,7 +46,9 @@ const AppRouter = () => {
 
     return (
         <SessionContext.Provider value={{ inSession }}>
-            <RouterProvider router={inSession && isSubscribed ? OnlineRouter : OfflineRouter} />
+            {/* <RouterProvider router={inSession && isSubscribed ? OnlineRouter : OfflineRouter} /> */}
+            <RouterProvider router={inSession ? OnlineRouter : OfflineRouter} />
+
         </SessionContext.Provider>
     );
     
