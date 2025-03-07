@@ -40,7 +40,7 @@ const OnlineRouter = createBrowserRouter([
                 element: <Wishlist />
             },
             {
-                path: "/details/:id",
+                path: "/detail/:id",
                 element: <Detail />
             },
             {

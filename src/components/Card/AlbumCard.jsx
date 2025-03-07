@@ -13,14 +13,14 @@ const AlbumCard = ({data}) => {
     return (
         <div className='flex flex-col w-[250px] p-4 bg-white_01 hover:bg-white_05 transition-all ease-in-out duration-500 animate-slideup rounded-lg cursor-pointer group'>
             <div className="relative w-full flex flex-col">
-                <Link to={`/album/${albumId}`}>
+                <Link to={`/detail/${albumId}`}>
                     <img 
                         src={imgAlbum}
                         alt={`image de l'album ${albumName}`}
                         className='card-sh rounded-lg object-cover h-52 w-52' />
                 </Link>
                 {/* TODO: placer ici le bouton play/pause */}
-                <Link to={`/album/${albumId}`}>
+                <Link to={`/detail/${albumId}`}>
                 </Link>
                 <div className="mt-4 flex flex-col">
                     <p className='text-white text-xl truncate font-bold'>{albumName}</p>
