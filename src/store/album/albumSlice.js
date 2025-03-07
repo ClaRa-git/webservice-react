@@ -13,7 +13,7 @@ const albumSlice = createSlice({
             state.loading = action.payload;
         },
         setAlbums: (state, action) => {
-            state.loading = action.payload;
+            state.albums = action.payload;
         }
     }
 })
