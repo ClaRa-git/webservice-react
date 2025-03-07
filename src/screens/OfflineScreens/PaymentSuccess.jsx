@@ -42,7 +42,6 @@ const PaymentSuccess = () => {
       const response = await axios.get(`${API_URL}/subscription_plans?page=1&stripePriceId=${subPriceId}`);
       const dataSubId = response.data['hydra:member'][0]?.id;
       setSubscriptionId(dataSubId);
-      console.log("blop");
 
     } catch (error) {
       console.log(`Erreur lors de la récupération de l'id de l'abonnement: ${error}`);
@@ -53,7 +52,6 @@ const PaymentSuccess = () => {
     setIsLoading(true);
     
     await fetchSubscriptionId(subPriceId);
-    console.log("blop2"); 
 
     // on reconstruit l'objet userSubscription
     const dataSubscriptionPlan = {

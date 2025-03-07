@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { IMG_LOGO } from '../../constants/appConstant';
+import { dataAlbumNav, dataUserNav, IMG_LOGO } from '../../constants/appConstant';
+import NavLinks from './NavLinks';
+import { FiLogOut } from 'react-icons/fi';
 
-const Sidebar = () => {
-    const [mobileMenu, setMobileMenu] = useState(false);
-    // on récupère l'id de l'user et la méthode signOut du contexte
-    const { userId, signOut } = useAuthContext();
-    // on récupère le hook de navigation
+const Logout = () => {
+    const { signOut } = useAuthContext();
     const navigate = useNavigate();
 
     // on crée la méthode de décconnexion
@@ -16,6 +15,23 @@ const Sidebar = () => {
         navigate('/');
     }
 
+    return (
+        <button onClick={() => {
+            const confirmLogout = window.confirm('Voulez-vous vraiment vous déconnecter ?');
+            if(confirmLogout) handleLogout();
+        }}
+        className='link-sidebar'>
+            <FiLogOut className='w-6 h-6 mr-2' />
+            Déconnexion
+        </button>
+    )
+}
+
+const Sidebar = () => {
+    const [mobileMenu, setMobileMenu] = useState(false);
+    // on récupère l'id de l'user et la méthode signOut du contexte
+    const { userId } = useAuthContext();
+
   return (
     <>
         {/* nav pour la vue au dessus de 768px */}
@@ -23,6 +39,20 @@ const Sidebar = () => {
             <div>
                 <img src={IMG_LOGO} alt="LogoSpotify" className='w-full h-14 object-containt' />
                 <h2 className="text-lg text-white font-semibold mt-10">Albums</h2>
+                <NavLinks 
+                    data={dataAlbumNav} 
+                    marginTop={'mt-4'}
+                />
+                <h2 className="text-lg text-white font-semibold mt-10">Utilisateur</h2>
+                <NavLinks 
+                    data={dataUserNav} 
+                    marginTop='mt-4'
+                    userId={userId}
+                />                
+            </div>
+            {/* bouton de déconnexion */}
+            <div className="mt-5">
+                <Logout />
             </div>
         </div>
 

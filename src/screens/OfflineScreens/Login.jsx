@@ -22,7 +22,7 @@ const Login = () => {
 
   //on verifie si l'user a un abonnement (uniquement après le login)
   const { isSubscribed, loading: checkingSubscription } = useSubscriptionCheck();
-console.log(isSubscribed);
+
   useEffect(() => {
     if (user && !checkingSubscription) {
       if (isSubscribed) {
@@ -41,7 +41,6 @@ console.log(isSubscribed);
 
     try {
       const response = await axios.post(`${API_ROOT}/login`, { email, password });
-      console.log(response.data);
 
       if(response.data.success === false) {
         setErrorMessage(response.data.message);
@@ -52,8 +51,8 @@ console.log(isSubscribed);
           nickname: response.data.nickname,
         };
         signIn(loggedInUser);
-        loggedInUser.isSubscribed = response.data?.isSubscribed;
-        setUser(loggedInUser);
+        // loggedInUser.isSubscribed = response.data?.isSubscribed;
+        // setUser(loggedInUser);
       }
 
     } catch (response) {

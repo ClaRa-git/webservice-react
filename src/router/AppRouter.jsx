@@ -26,7 +26,7 @@ const AppRouter = () => {
     useEffect(() => {
         const checkUserSession = async () => {
             if(userInfo) {
-                setUserId(userInfo.id);
+                setUserId(userInfo.userId);
                 setEmail(userInfo.email);
                 setNickname(userInfo.nickname);
                 setInSession(true);
