@@ -11,7 +11,7 @@ const NavLinks = ({data, marginTop, handleClick, userId = 0}) => {
                 to={item.path.replace(':id', userId)} 
                 end
                 className={'link-sidebar'}
-                onClick={handleClick && handleClick()}
+                onClick={() => handleClick && handleClick()}
             >
                 {<item.icon className='mr-2'/>}
                 {item.title}

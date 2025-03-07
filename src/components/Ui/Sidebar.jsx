@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { dataAlbumNav, dataUserNav, IMG_LOGO } from '../../constants/appConstant';
+import { dataAlbumNav, dataUserNav, IMG_LOGO, styleIcon } from '../../constants/appConstant';
 import NavLinks from './NavLinks';
 import { FiLogOut } from 'react-icons/fi';
+import { RiCloseLine } from 'react-icons/ri';
+import { HiOutlineMenu } from 'react-icons/hi';
 
 const Logout = () => {
     const { signOut } = useAuthContext();
@@ -57,8 +59,44 @@ const Sidebar = () => {
         </div>
 
         {/* gestion des icones pour ouvrir/fermer le menu en petit écran */}
+        <div className="absolute md:hidden block top-6 right-3">
+            { mobileMenu ? (
+                <RiCloseLine
+                style={styleIcon}
+                className='text-white mr-2'
+                onClick={() => setMobileMenu(false)}
+                />
+            ) : (
+                <HiOutlineMenu
+                style={styleIcon}
+                className='text-white mr-2'
+                onClick={() => setMobileMenu(true)}
+                />
+            ) }
+        </div>
 
         {/* nav pour la vue en dessous de 768px */}
+        <div className={`z-20 absolute top-0 h-screen w-2/3 bg-gradient-to-tl from-white_01 to-black backdrop-blur-lg p-6 md:hidden smooth-transition duration-500 ${mobileMenu ? 'left-0' : '-left-full'} flex flex-col justify-between`}>
+            <div>
+                <img src={IMG_LOGO} alt="Logo Spotify" className='w-full h-14 object-contain' />
+                <h2 className="text-lg text-white font-semibold mt-10">Albums</h2>
+                <NavLinks
+                    data={dataAlbumNav}
+                    marginTop={'mt-4'}
+                    handleClick={() => setMobileMenu(false)}
+                />
+                <h2 className="text-lg text-white font-semibold mt-10">Utilisateur</h2>
+                <NavLinks
+                    data={dataUserNav}
+                    marginTop={'mt-4'}
+                    userId={userId}
+                    handleClick={() => setMobileMenu(false)}
+                />
+            </div>
+            <div className="mt-5">
+                <Logout />
+            </div>
+        </div>
     </>
   )
 }
