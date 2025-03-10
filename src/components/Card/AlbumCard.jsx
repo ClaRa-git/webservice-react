@@ -21,11 +21,12 @@ const AlbumCard = ({data}) => {
                 </Link>
                 {/* TODO: placer ici le bouton play/pause */}
                 <Link to={`/detail/${albumId}`}>
+                    <div className="mt-4 flex flex-col">
+                        <p className='text-white text-xl truncate font-bold'>{albumName}</p>
+                        <p className='text-white text-sm truncate'>{artistName}</p>
+                    </div>
                 </Link>
-                <div className="mt-4 flex flex-col">
-                    <p className='text-white text-xl truncate font-bold'>{albumName}</p>
-                    <p className='text-white text-sm truncate'>{artistName}</p>
-                </div>
+                
             </div>
         </div>
     )
