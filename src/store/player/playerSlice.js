@@ -26,7 +26,7 @@ const playerSlice = createSlice({
             state.isActive = true;
         },
         // récuperer les infos de l'album en cours de lecture
-        setCurrentAlbum: (state, action) => {
+        setActiveAlbum: (state, action) => {
             state.currentAlbum = action.payload?.data;
         },
         // méthode pour avancer d'une piste
@@ -51,6 +51,6 @@ const playerSlice = createSlice({
 })
 
 // on exporte les actions
-export const { setActiveSong, setCurrentAlbum, nextSong, prevSong, playPause } = playerSlice.actions;
+export const { setActiveSong, setActiveAlbum, nextSong, prevSong, playPause } = playerSlice.actions;
 // on exporte le reducer
 export default playerSlice.reducer;
