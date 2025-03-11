@@ -1,6 +1,7 @@
 import React from 'react'
 import { ALBUM_URL } from '../../constants/apiConstant'
 import HeaderInfo from './HeaderInfo';
+import HeaderCategory from './HeaderCategory';
 
 const HeaderDetail = ({dataAlbum}) => {
     //on récupère l'image de l'album
@@ -13,6 +14,7 @@ const HeaderDetail = ({dataAlbum}) => {
                 <h1 className='text-5xl font-bold text-white my-7'>{dataAlbum?.title}</h1>
                 {/* on va afficher la barre d'infos */}
                 <HeaderInfo dataAlbum={dataAlbum} />
+                <HeaderCategory dataAlbum={dataAlbum} />
             </div>
         </div>
     )

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ALBUM_URL, ARTIST_URL } from '../../constants/apiConstant';
 import PageLoader from '../Loader/PageLoader';
+import { Link } from 'react-router-dom';
 
 const HeaderInfo = ({dataAlbum}) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -48,7 +49,9 @@ const HeaderInfo = ({dataAlbum}) => {
     return (
         isLoading ? <PageLoader /> :
         <div className='flex items-center'>
-            <img src={imgPath} alt={dataAlbum?.artist?.name ?? "Photo artiste"} className='w-10 h-10 rounded-full object-cover' />
+            <Link to={`/artist-detail/${dataAlbum?.artist?.id}`} >
+                <img src={imgPath} alt={dataAlbum?.artist?.name ?? "Photo artiste"} className='w-10 h-10 rounded-full object-cover' />
+            </Link>
             <p className='font-bold text-base p-1'>{dataAlbum?.artist?.name ?? "Artiste inconnu"}</p>
             <Dot />
             <p className='font-bold text-base p-1'>{releaseDate}</p>
