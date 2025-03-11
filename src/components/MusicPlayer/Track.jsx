@@ -10,6 +10,7 @@ const Track = ({ isPlaying, isActive, activeSong, currentAlbum }) => {
     const artistName = currentAlbum?.artist?.name ?? 'Artiste inconnu';
     // on récupère le nom de l'album
     const album = currentAlbum?.title ?? 'Album inconnu';
+    console.log('currentAlbum', currentAlbum);
 
   return (
     <div className='flex flex-1 items-center justify-start'>

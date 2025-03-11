@@ -55,3 +55,8 @@
     @apply bg-green_top;
     border-radius: 5px;
 }
+
+/* collapse transition */
+.ReactCollapse--collapse{
+    transition: height 1000ms;
+}

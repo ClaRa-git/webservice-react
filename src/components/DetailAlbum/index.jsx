@@ -1,12 +1,14 @@
 import React from 'react'
 import HeaderDetail from './HeaderDetail'
+import ToolBarDetail from './ToolBarDetail'
 
 const DetailAlbum = ({dataAlbum}) => {
 
     return (
-        <div>
+        <>
             <HeaderDetail dataAlbum={dataAlbum}/>
-        </div>
+            <ToolBarDetail dataAlbum={dataAlbum}/>
+        </>
     )
 }
 
