@@ -6,7 +6,8 @@ const albumSlice = createSlice({
     name: "albums",
     initialState:{
         loading: false,
-        albums: []
+        albums: [],
+        albumDetail: {}
     },
     reducers:{
         setLoading: (state, action) => {
@@ -14,11 +15,14 @@ const albumSlice = createSlice({
         },
         setAlbums: (state, action) => {
             state.albums = action.payload;
+        },
+        setAlbumDetail: (state, action) => {
+            state.albumDetail = action.payload;
         }
     }
 })
 
-export const { setLoading, setAlbums } = albumSlice.actions;
+export const { setLoading, setAlbums, setAlbumDetail } = albumSlice.actions;
 
 // méthode qui récupère tous les albums en bdd
 export const fetchAlbums = () => async (dispatch) => {
@@ -28,6 +32,19 @@ export const fetchAlbums = () => async (dispatch) => {
         dispatch(setAlbums(response.data));
     } catch (error) {
         console.log(`Erreur lors de la récupération des albums: ${error}`);
+    } finally {
+        dispatch(setLoading(false));
+    }
+}
+
+// méthode qui récupère un album en bdd
+export const fetchAlbumDetail = (id) => async (dispatch) => {
+    try {
+        dispatch(setLoading(true));
+        const response = await axios.get(`${API_URL}/albums/${id}`);
+        dispatch(setAlbumDetail(response.data));
+    } catch (error) {
+        console.log(`Erreur lors de la récupération de l'album: ${error}`);
     } finally {
         dispatch(setLoading(false));
     }
