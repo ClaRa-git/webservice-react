@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import selectAlbumData from '../../store/album/albumSelector';
 import { useSelector } from 'react-redux';
 import AlbumCard from '../Card/AlbumCard';
 import ArtistCard from '../Card/ArtistCard';
 
-const SearchView = () => {
+const SearchView = ({word}) => {
+
+    const [searchWord, setSearchWord] = useState(word);
     // on récupère les infos du slice album
     const { searchAlbum, searchTitle, searchArtist } = useSelector(selectAlbumData);
 
@@ -21,12 +23,12 @@ const SearchView = () => {
         {dataAlbum && dataAlbum.length === 0 
         && dataTitle && dataTitle.length === 0
         && dataArtist && dataArtist.length === 0 && (
-            <h2 className='font-bold text-3xl text-white text-left mt-10 mb-4'>Aucun résultat trouvé</h2>
+            <h2 className='font-bold text-3xl text-white text-left mt-10 mb-4 ml-4'>{`Aucun résultat trouvé pour "${searchWord}"`}</h2>
         )}
 
         {/* partie album */}
         {dataAlbum && dataAlbum.length > 0 
-            ? <h2 className='font-bold text-3xl text-white text-left mt-10 mb-4'>Résultat(s) des albums</h2>
+            ? <h2 className='font-bold text-3xl text-white text-left mt-10 mb-4 ml-4'>{`${dataAlbum.length} album(s) pour "${searchWord}"`}</h2>
             : null
         }
         <div className='flex flex-wrap'>
@@ -44,7 +46,7 @@ const SearchView = () => {
         </div>
         {/* partie artiste */}
         {dataArtist && dataArtist.length > 0 
-            ? <h2 className='font-bold text-3xl text-white text-left mt-10 mb-4'>Résultat(s) des artistes</h2>
+            ? <h2 className='font-bold text-3xl text-white text-left mt-10 mb-4 ml-4'>{`${dataArtist.length} artiste(s) pour "${searchWord}"`}</h2>
             : null
         }
         <div className='flex flex-wrap'>
@@ -57,7 +59,7 @@ const SearchView = () => {
 
         {/* partie titre*/}
         {dataTitle && dataTitle.length > 0 
-            ? <h2 className='font-bold text-3xl text-white text-left mt-10 mb-4'>Résultat(s) des titres de chanson</h2>
+            ? <h2 className='font-bold text-3xl text-white text-left mt-10 mb-4 ml-4'>{`${dataTitle.length} titre(s) de chanson pour "${searchWord}"`}</h2>
             : null
         }
         <div className='flex flex-wrap'>
