@@ -17,7 +17,7 @@ const albumSlice = createSlice({
             state.albums = action.payload;
         },
         setAlbumDetail: (state, action) => {
-            state.albumDetail = action.payload;
+            state.albumDetail = action.payload['hydra:member'][0];
         }
     }
 })
@@ -41,7 +41,7 @@ export const fetchAlbums = () => async (dispatch) => {
 export const fetchAlbumDetail = (id) => async (dispatch) => {
     try {
         dispatch(setLoading(true));
-        const response = await axios.get(`${API_URL}/albums/${id}`);
+        const response = await axios.get(`${API_URL}/albums?id=${id}&isActive=true`);
         dispatch(setAlbumDetail(response.data));
     } catch (error) {
         console.log(`Erreur lors de la récupération de l'album: ${error}`);
