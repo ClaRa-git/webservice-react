@@ -6,20 +6,18 @@ import selectArtistData from '../../store/artist/artistSelector';
 const Track = ({ isPlaying, isActive, activeSong, currentAlbum, artist = 'Artiste inconnu' }) => {
     // on récupère les infos de l'artiste depuis le store
     const { artistDetail } = useSelector(selectArtistData);
-    console.log('artistDetail', artistDetail);
     // on récupère l'image de l'album
     const imgAlbum = `${ALBUM_URL}/${currentAlbum?.imagePath}`;
     // on récupère le titre de la chanson
     const title = activeSong?.title ?? 'Musique inconnue';
     // on récupère le nom de l'artiste
     const artistName = currentAlbum?.artist?.name
-    ?currentAlbum?.artist?.name
-    : artistDetail?.artist?.name
-    ? artistDetail?.artist?.name
-    : artist
+    ? currentAlbum?.artist?.name
+    : artistDetail?.name
+      ? artistDetail?.name
+      : artist
     // on récupère le nom de l'album
     const album = currentAlbum?.title ?? 'Album inconnu';
-    console.log('currentAlbum', currentAlbum);
 
   return (
     <div className='flex flex-1 items-center justify-start'>

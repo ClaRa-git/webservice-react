@@ -13,7 +13,7 @@ const artistSlice = createSlice({
             state.loading = action.payload;
         },
         setArtistDetail: (state, action) => {
-            state.artistDetail = action.payload;
+            state.artistDetail = action.payload['hydra:member'][0];
         }
     }
 });
