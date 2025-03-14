@@ -7,7 +7,10 @@ const albumSlice = createSlice({
     initialState:{
         loading: false,
         albums: [],
-        albumDetail: {}
+        albumDetail: {},
+        searchAlbum: [],
+        searchTitle: [],
+        searchArtist: [],
     },
     reducers:{
         setLoading: (state, action) => {
@@ -18,20 +21,29 @@ const albumSlice = createSlice({
         },
         setAlbumDetail: (state, action) => {
             state.albumDetail = action.payload['hydra:member'][0];
+        },
+        setSearchAlbum: (state, action) => {
+            state.searchAlbum = action.payload;
+        },
+        setSearchTitle: (state, action) => {
+            state.searchTitle = action.payload;
+        },
+        setSearchArtist: (state, action) => {
+            state.searchArtist = action.payload;
         }
     }
 })
 
-export const { setLoading, setAlbums, setAlbumDetail } = albumSlice.actions;
+export const { setLoading, setAlbums, setAlbumDetail, setSearchAlbum, setSearchTitle, setSearchArtist } = albumSlice.actions;
 
 // méthode qui récupère tous les albums en bdd
-export const fetchAlbums = () => async (dispatch) => {
+export const fetchAlbums = (page = 1) => async (dispatch) => {
     try {
         dispatch(setLoading(true));
-        const response = await axios.get(`${API_URL}/albums?page=1&isActive=true`);
+        const response = await axios.get(`${API_URL}/albums?page=${page}&isActive=true`);
         dispatch(setAlbums(response.data));
     } catch (error) {
-        console.log(`Erreur lors de la récupération des albums: ${error}`);
+        console.log(`Erreur lors du fetchAlbums: ${error}`);
     } finally {
         dispatch(setLoading(false));
     }
@@ -48,6 +60,31 @@ export const fetchAlbumDetail = (id) => async (dispatch) => {
     } finally {
         dispatch(setLoading(false));
     }
+}
+
+// méthode pour faire un recherche
+export const fetchSearch = (search) => async (dispatch) => {
+    try {
+        dispatch(setLoading(true));
+        const responseAlbum = await axios.get(`${API_URL}/albums?page=1&title=${search}&isActive=true`);
+        const responseTitle = await axios.get(`${API_URL}/albums?page=1&songs.title=${search}&isActive=true`);
+        const responseArtist = await axios.get(`${API_URL}/artists?page=1&name=${search}&albums.isActive=true`);
+        
+        dispatch(setSearchAlbum(responseAlbum.data));
+        dispatch(setSearchTitle(responseTitle.data));
+        dispatch(setSearchArtist(responseArtist.data));
+    } catch (error) {
+        console.log(`Erreur lors du fetchSearch: ${error}`);
+    } finally {
+        dispatch(setLoading(false));   
+    }
+}
+
+// méthode qui reset le recherche
+export const fetchResetSearch = () => async (dispatch) => {
+    dispatch(setSearchAlbum([]));
+    dispatch(setSearchTitle([]));
+    dispatch(setSearchArtist([]));
 }
 
 export default albumSlice.reducer;
