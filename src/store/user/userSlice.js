@@ -6,7 +6,9 @@ const userSlice = createSlice({
     name: "users",
     initialState: {
         loading: false,
-        userFavorites: []
+        userDetail: {},
+        userFavorites: [],
+        avatars: []
     },
     reducers: {
         setLoading: (state, action) => {
@@ -14,11 +16,30 @@ const userSlice = createSlice({
         },
         setUserFavorites: (state, action) => {
             state.userFavorites = action.payload;
+        },
+        setUserDetail: (state, action) => {
+            state.userDetail = action.payload;
+        },
+        setAvatars: (state, action) => {
+            state.avatars = action.payload['hydra:member'];
         }
     }
 });
 
-export const { setLoading, setUserFavorites } = userSlice.actions;
+export const { setLoading, setUserFavorites, setUserDetail, setAvatars } = userSlice.actions;
+
+// méthode qui récupère les détails d'un utilisateur
+export const fetchUserDetail = (id) => async (dispatch) => {
+    try {
+        dispatch(setLoading(true));
+        const response = await axios.get(`${API_URL}/users/${id}`);
+        dispatch(setUserDetail(response.data));
+    } catch (error) {
+        console.log(`Erreur lors du fetchUserDetail: ${error}`);
+    } finally {
+        dispatch(setLoading(false));
+    }
+}
 
 // méthode qui récupère les favoris d'un utilisateur
 export const fetchUserFavorites = (userId) => async (dispatch) => {
@@ -32,5 +53,18 @@ export const fetchUserFavorites = (userId) => async (dispatch) => {
         dispatch(setLoading(false));
     }
 };
+
+// méthode qui récupère les avatars d'un utilisateur
+export const fetchAvatars = () => async (dispatch) => {
+    try {
+        dispatch(setLoading(true));
+        const response = await axios.get(`${API_URL}avatars?page=1&isActive=true`);
+        dispatch(setAvatars(response.data));
+    } catch (error) {
+        console.log(`Erreur lors de la récupération des avatars: ${error}`);
+    } finally {
+        dispatch(setLoading(false));
+    }
+}
 
 export default userSlice.reducer;
