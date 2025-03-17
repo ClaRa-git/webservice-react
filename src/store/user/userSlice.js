@@ -58,7 +58,7 @@ export const fetchUserFavorites = (userId) => async (dispatch) => {
 export const fetchAvatars = () => async (dispatch) => {
     try {
         dispatch(setLoading(true));
-        const response = await axios.get(`${API_URL}avatars?page=1&isActive=true`);
+        const response = await axios.get(`${API_URL}/avatars?page=1&isActive=true`);
         dispatch(setAvatars(response.data));
     } catch (error) {
         console.log(`Erreur lors de la récupération des avatars: ${error}`);
