@@ -19,13 +19,14 @@ const SearchBar = () => {
   //méthode pour envoyer le formulaire 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(searchWord === ''){
+    const search = searchWord.trim();
+    if(search === ''){
       setErrorMessage('Veuillez saisir un mot clé');
-    }else if(searchWord.length < 3){
+    }else if(search.length < 3){
       setErrorMessage('Veuillez saisir au moins 3 caractères');
     }else{
       setErrorMessage('');
-      dispatch(fetchSearch(searchWord));
+      dispatch(fetchSearch(search));
     }
   }
 
