@@ -28,8 +28,7 @@ const Account = () => {
 
   useEffect(() => {
     if(userDetail && userDetail?.userSubscriptions) setSubscriptions(userDetail.userSubscriptions);
-  }, [userDetail])
-  
+  }, [userDetail])  
 
   // on déclare des constantes pour récupérer les informations de l'utilisateur
   const imgUser = userDetail?.avatar?.imagePath
@@ -60,7 +59,10 @@ const Account = () => {
           <Link to={'/edit-info'} className='w-full text-center mt-4 bg-green text-white px-4 py-2 rounded-lg hover:bg-green_top transition duration-300'>
             Modifier mes informations
           </Link>
-          <Link to={`/manage-subscription/${userId}`} className='w-full text-center mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300'>
+          <Link to={`/manage-subscription/${userId}`}
+            className='w-full text-center mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300'
+            state={{subscriptions: subscriptions}}  
+          >
             Gérer mon abonnement
           </Link>
         </div>

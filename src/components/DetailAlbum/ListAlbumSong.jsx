@@ -5,6 +5,7 @@ import { BiTime } from 'react-icons/bi';
 import { tableIcon } from '../../constants/appConstant';
 import PlayPause from '../Services/PlayPause';
 import { IoMdAdd } from 'react-icons/io';
+import PopupPlaylist from '../Ui/PopupPlaylist';
 
 const ListAlbumSong = ({ dataAlbum }) => {
   //on redeclare nos constantes
@@ -12,6 +13,8 @@ const ListAlbumSong = ({ dataAlbum }) => {
   const songs = dataAlbum?.songs;
   //on declare nos states
   const [isHover, setIsHover] = useState(-1); //quand la souris sera sur une piste
+  const [isVisible, setIsVisible] = useState(false); //pour gérer l'affichage de la popup pour la playlist
+  const [songId, setSongId] = useState(null); //pour gérer l'ajout d'une piste dans la playlist
   //on récupère les données du store
   const { isPlaying, activeSong } = useSelector((state) => state.player);
   //on recupère le hook
@@ -27,9 +30,11 @@ const ListAlbumSong = ({ dataAlbum }) => {
     dispatch(playPause(true));
   }
 
+
   // méthode pour mettre une piste dans la playlist
-  const addPlaylist = () => {
-    console.log('Ajout de la piste à la playlist');
+  const addPlaylist = (songId) => {
+    setSongId(songId);
+    setIsVisible(true);
   }
 
   return (
@@ -83,7 +88,7 @@ const ListAlbumSong = ({ dataAlbum }) => {
                       <td className='whitespace-nowrap px-6 py-4 font-medium m-1'>
                         <div className='flex justify-end'>
                           {isHover !== index && <div style={tableIcon}></div>}
-                          {isHover === index && <IoMdAdd className='cursor-pointer' style={tableIcon} onClick={() => addPlaylist()} />}
+                          {isHover === index && <IoMdAdd className='cursor-pointer' style={tableIcon} onClick={() => addPlaylist(row.id)} />}
                         </div>
                       </td>
                       <td className='whitespace-nowrap px-6 py-4 font-medium m-1'>{duration}</td>
@@ -95,6 +100,11 @@ const ListAlbumSong = ({ dataAlbum }) => {
           </div>
         </div>
       </div>
+      {isVisible &&
+      <PopupPlaylist
+        callable={() => setIsVisible(false)}
+        songId={songId}
+      />}
     </div>
   )
 }

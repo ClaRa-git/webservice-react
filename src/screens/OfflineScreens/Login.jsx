@@ -51,8 +51,8 @@ const Login = () => {
           nickname: response.data.nickname,
         };
         signIn(loggedInUser);
-        // loggedInUser.isSubscribed = response.data?.isSubscribed;
-        // setUser(loggedInUser);
+        loggedInUser.isSubscribed = response.data?.isSubscribed;
+        setUser(loggedInUser);
       }
 
     } catch (response) {

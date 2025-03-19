@@ -8,6 +8,7 @@ const userSlice = createSlice({
         loading: false,
         userDetail: {},
         userFavorites: [],
+        userPlaylists: [],
         avatars: []
     },
     reducers: {
@@ -22,11 +23,14 @@ const userSlice = createSlice({
         },
         setAvatars: (state, action) => {
             state.avatars = action.payload['hydra:member'];
+        },
+        setUserPlaylists: (state, action) => {
+            state.userPlaylists = action.payload['hydra:member'];
         }
     }
 });
 
-export const { setLoading, setUserFavorites, setUserDetail, setAvatars } = userSlice.actions;
+export const { setLoading, setUserFavorites, setUserDetail, setAvatars, setUserPlaylists } = userSlice.actions;
 
 // méthode qui récupère les détails d'un utilisateur
 export const fetchUserDetail = (id) => async (dispatch) => {
@@ -62,6 +66,19 @@ export const fetchAvatars = () => async (dispatch) => {
         dispatch(setAvatars(response.data));
     } catch (error) {
         console.log(`Erreur lors de la récupération des avatars: ${error}`);
+    } finally {
+        dispatch(setLoading(false));
+    }
+}
+
+// méthode qui récupère les playlists d'un utilisateur
+export const fetchUserPlaylists = (userId) => async (dispatch) => {
+    try {
+        dispatch(setLoading(true));
+        const response = await axios.get(`${API_URL}/playlists?page=1&user=${userId}`);
+        dispatch(setUserPlaylists(response.data));
+    } catch (error) {
+        console.log(`Erreur lors de la récupération des playlists de l'utilisateur: ${error}`);
     } finally {
         dispatch(setLoading(false));
     }
