@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { USER_INFOS } from './constants/appConstant'
 import useAuhtCheck from './hooks/useAuthCheck';
@@ -14,6 +14,12 @@ const App = () => {
   useAuhtCheck(user);
   // on récupère le state activeSong du slice player
   const { activeSong } = useSelector(state => state.player);
+
+  useEffect(() => {
+    // on met la barre de scroll tout en haut
+    window.scrollTo(0, 0);
+  }, [])
+  
 
   return (
     <div className='relative flex'>

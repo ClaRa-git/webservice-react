@@ -6,6 +6,7 @@ import selectUserData from '../../store/user/userSelector';
 import PageLoader from '../../components/Loader/PageLoader';
 import HeaderDetail from '../../components/DetailPlaylist/HeaderDetail';
 import ToolBarDetail from '../../components/DetailPlaylist/ToolBarDetail';
+import ListPlaylistSong from '../../components/DetailPlaylist/ListPlaylistSong';
 
 const PlaylistDetail = () => {
     const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const PlaylistDetail = () => {
     <>
         <HeaderDetail dataPlaylist={playlistDetail}/>
         <ToolBarDetail dataPlaylist={playlistDetail} />
+        <ListPlaylistSong dataPlaylist={playlistDetail} />
     </>
   )
 }
