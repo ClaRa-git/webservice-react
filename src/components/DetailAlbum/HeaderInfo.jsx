@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ALBUM_URL, ARTIST_URL } from '../../constants/apiConstant';
 import PageLoader from '../Loader/PageLoader';
 import { Link } from 'react-router-dom';
+import { totalDuration } from '../../services/toolsService';
 
 const HeaderInfo = ({dataAlbum}) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -29,22 +30,7 @@ const HeaderInfo = ({dataAlbum}) => {
     )
 
     // traitement de la durée totale de l'album
-    const durationAlbum = () => {
-        // on va calculer le nombre total de secondes
-        const totalSeconds = dataAlbum?.songs && dataAlbum?.songs.map(function(title){
-            return parseInt(title.duration);
-        }).reduce(function(a, b){
-            return a + b;
-        }, 0);
-
-        // on va formater les secondes en heures, minutes et secondes
-        const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
-
-        // on retourne une chaine de caractère formatée sous la forme hh:mm:ss ou mm:ss
-        return hours > 0 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`;
-    }
+    const durationAlbum = totalDuration(dataAlbum);
 
     return (
         isLoading ? <PageLoader /> :
@@ -58,7 +44,7 @@ const HeaderInfo = ({dataAlbum}) => {
             <Dot />
             <p className='font-bold text-base p-1'>{nbTracks}</p>
             <Dot />
-            <p className='font-bold text-base p-1'>{dataAlbum?.songs?.length > 0 ? durationAlbum() : "Pas de titre"}</p>
+            <p className='font-bold text-base p-1'>{dataAlbum?.songs?.length > 0 ? durationAlbum : "Pas de titre"}</p>
         </div>
     )
 }

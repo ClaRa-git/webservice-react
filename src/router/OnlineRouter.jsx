@@ -13,6 +13,7 @@ import ArtistDetail from "../screens/OnlineScreens/ArtistDetail";
 import EditInfo from "../screens/OnlineScreens/Account/EditInfo";
 import AvatarList from "../screens/OnlineScreens/Account/AvatarList";
 import ManageSubscription from "../screens/OnlineScreens/Account/ManageSubscription";
+import PlaylistDetail from "../screens/OnlineScreens/PlaylistDetail";
 
 const OnlineRouter = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ const OnlineRouter = createBrowserRouter([
             {
                 path: "/playlist",
                 element: <Playlist />
+            },
+            {
+                path: "playlist-detail/:id",
+                element: <PlaylistDetail />
             },
             {
                 path: "/wishlist",
