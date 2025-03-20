@@ -39,7 +39,7 @@ const ToolBarDetail = ({dataAlbum}) => {
     useEffect(() => {
         dispatch(fetchUserFavorites(userId));
         setIsLoading(false);
-    }, [dispatch])
+    }, [dispatch, userId])
 
     useEffect(() => {
         checkFavorite();

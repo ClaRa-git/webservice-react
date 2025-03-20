@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import DetailAlbum from '../../components/DetailAlbum'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,6 +13,8 @@ const Detail = () => {
   const id = params.id; // const {id} = params;
   //on récupère le hook useDispatch pour dispatcher les actions
   const dispatch = useDispatch();
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     dispatch(fetchAlbumDetail(id));
