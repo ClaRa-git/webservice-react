@@ -44,6 +44,9 @@ const ManageSubscription = () => {
   }, [])
 
   const handleCancelSubscription = async () => {
+    const confirm = window.confirm('Voulez-vous vraiment résilier votre abonnement?');
+    if (!confirm) return;
+
     try {
       const responseCancel = await axios.post(`${API_ROOT}/user/pause-subscription`, { subscriptionId: subscriptions[0].stripeSubscriptionId },
         {
@@ -63,6 +66,9 @@ const ManageSubscription = () => {
     }
   }
   const handleResumeSubscription = async () => {
+    const confirm = window.confirm('Voulez-vous vraiment réactiver votre abonnement?');
+    if(!confirm) return;
+
     try {
       const responseResume = await axios.post(`${API_ROOT}/user/reactivate-subscription`, { subscriptionId: subscriptions[0].stripeSubscriptionId },
         {
@@ -130,10 +136,7 @@ const ManageSubscription = () => {
             ? <button
               className='bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300'
               onClick={() => {
-                // on déclenche une alerte pour confirmer la résiliation
-                if (window.confirm('Voulez-vous vraiment résilier votre abonnement?')) {
                   handleCancelSubscription();
-                }
               }}
             >
               Résilier abonnement
@@ -141,10 +144,7 @@ const ManageSubscription = () => {
             : <button
               className='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300'
               onClick={() => {
-                // on déclenche une alerte pour confirmer la réactivation
-                if (window.confirm('Voulez-vous vraiment réactiver votre abonnement?')) {
                   handleResumeSubscription();
-                }
               }}
             >
               Réactiver abonnement
