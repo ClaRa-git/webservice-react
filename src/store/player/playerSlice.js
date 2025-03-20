@@ -19,7 +19,7 @@ const playerSlice = createSlice({
             // stockage de la chanson en lecture dans activeSong
             state.activeSong = action.payload?.songs[action.payload.index];
             // stockage du tableau de chansons de l'album en cours de lecture
-            state.currentSongs = action.payload?.data?.songs;
+            state.currentSongs = action.payload?.songs;
             // stockage de l'index de la chanson en cours de lecture
             state.currentIndex = action.payload?.index;
             // stockage de l'état du player

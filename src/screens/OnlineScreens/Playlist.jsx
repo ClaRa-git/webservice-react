@@ -17,7 +17,6 @@ const Playlist = () => {
   }, [dispatch, userId]);
 
   const {loading, userPlaylists} = useSelector(selectUserData);  
-  console.log('userPlaylists', userPlaylists);
 
   return (
     loading ? <PageLoader />

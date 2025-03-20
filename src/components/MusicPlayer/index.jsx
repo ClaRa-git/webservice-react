@@ -23,7 +23,7 @@ const MusicPlayer = () => {
 
   useEffect(() => {
     //si le store contient un tableau de chanson on dispatch playPause à true
-    if (currentSongs.length) dispatch(playPause(true));
+    if (currentSongs?.length) dispatch(playPause(true));
   }, [currentIndex]) //si currentIndex change on recharge le composant
 
   //on définit nos méthodes
@@ -39,18 +39,18 @@ const MusicPlayer = () => {
   const handleNextSong = () => {
     //si on n'est pas en mode shuffle
     if (!shuffle) {
-      dispatch(nextSong((currentIndex + 1) % currentSongs.length));
+      dispatch(nextSong((currentIndex + 1) % currentSongs?.length));
     } else {
-      dispatch(nextSong(Math.floor(Math.random() * currentSongs.length)));
+      dispatch(nextSong(Math.floor(Math.random() * currentSongs?.length)));
     }
   }
   //méthode pour reculer d'une piste
   const handlePrevSong = () => {
     if (currentIndex === 0) {
       //si l'index est a 0 on récupère le dernier index du tableau
-      dispatch(prevSong(currentSongs.length - 1));
+      dispatch(prevSong(currentSongs?.length - 1));
     } else if (shuffle) {
-      dispatch(prevSong(Math.floor(Math.random() * currentSongs.length)));
+      dispatch(prevSong(Math.floor(Math.random() * currentSongs?.length)));
     } else {
       dispatch(prevSong(currentIndex - 1));
     }

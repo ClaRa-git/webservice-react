@@ -26,7 +26,7 @@ const ListAlbumSong = ({ dataAlbum }) => {
   //méthode lorsqu'on met play
   const handlePlayClick = (index) => {
     dispatch(setActiveSong({ songs, data, index }));
-    dispatch(setActiveAlbum(data));
+    dispatch(setActiveAlbum({data}));
     dispatch(playPause(true));
   }
 

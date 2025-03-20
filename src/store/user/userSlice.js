@@ -9,6 +9,7 @@ const userSlice = createSlice({
         userDetail: {},
         userFavorites: [],
         userPlaylists: [],
+        playlistDetail: {},
         avatars: []
     },
     reducers: {
@@ -26,11 +27,14 @@ const userSlice = createSlice({
         },
         setUserPlaylists: (state, action) => {
             state.userPlaylists = action.payload['hydra:member'];
+        },
+        setPlaylistDetail: (state, action) => {
+            state.playlistDetail = action.payload;
         }
     }
 });
 
-export const { setLoading, setUserFavorites, setUserDetail, setAvatars, setUserPlaylists } = userSlice.actions;
+export const { setLoading, setUserFavorites, setUserDetail, setAvatars, setUserPlaylists, setPlaylistDetail } = userSlice.actions;
 
 // méthode qui récupère les détails d'un utilisateur
 export const fetchUserDetail = (id) => async (dispatch) => {
@@ -79,6 +83,19 @@ export const fetchUserPlaylists = (userId) => async (dispatch) => {
         dispatch(setUserPlaylists(response.data));
     } catch (error) {
         console.log(`Erreur lors de la récupération des playlists de l'utilisateur: ${error}`);
+    } finally {
+        dispatch(setLoading(false));
+    }
+}
+
+// méthode qui récupère le détail d'une playlist
+export const fetchPlaylistDetail = (id) => async (dispatch) => {
+    try {
+        dispatch(setLoading(true));
+        const response = await axios.get(`${API_URL}/playlists/${id}`);
+        dispatch(setPlaylistDetail(response.data));
+    } catch (error) {
+        console.log(`Erreur lors de la récupération du détail de la playlist: ${error}`);
     } finally {
         dispatch(setLoading(false));
     }
