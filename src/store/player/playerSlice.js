@@ -35,12 +35,20 @@ const playerSlice = createSlice({
             state.activeSong = state.currentSongs[action.payload];
             // on stocke le nouvel index
             state.currentIndex = action.payload;
+            // on va regarder si dans state.currentSongs[index donné], il y a une clé album. SI oui, on met à jour currentAlbum sinon on laisse tel quel
+            state.currentAlbum = state.currentSongs[action.payload]?.album 
+            ? state.currentSongs[action.payload]?.album 
+            : state.currentAlbum;
             state.isActive = true;
         },
         // méthode pour revenir d'une piste
         prevSong: (state, action) => {
             state.activeSong = state.currentSongs[action.payload];
             state.currentIndex = action.payload;
+            // on va regarder si dans state.currentSongs[index donné], il y a une clé album. SI oui, on met à jour currentAlbum sinon on laisse tel quel
+            state.currentAlbum = state.currentSongs[action.payload]?.album 
+            ? state.currentSongs[action.payload]?.album 
+            : state.currentAlbum;
             state.isActive = true;
         },
         // méthode pour mettre en pause

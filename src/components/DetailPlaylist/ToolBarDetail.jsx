@@ -6,10 +6,8 @@ import { current } from '@reduxjs/toolkit';
 
 const ToolBarDetail = ({dataPlaylist}) => {
     const dispatch = useDispatch();
-    console.log(dataPlaylist);
     const[index, setIndex] = useState(null);
     const {isPlaying, activeSong, currentIndex} = useSelector((state) => state.player);
-    console.log('currentIndex', currentIndex);
 
     useEffect(() => {
       setIndex(currentIndex);
