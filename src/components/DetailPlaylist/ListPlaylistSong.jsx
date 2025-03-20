@@ -33,6 +33,9 @@ const ListPlaylistSong = ({dataPlaylist}) => {
 
     const handleDeleteSong = async (id) => {
         try {
+            const confirm = window.confirm('Voulez-vous vraiment supprimer cette piste de la playlist ?');
+            if(!confirm) return;
+
             // on doit récupérer le tableau d'ids de la playlist
             // ['api/songs/1', 'api/songs/2', 'api/songs/3']
             const songIds = dataPlaylist?.songs && dataPlaylist?.songs?.map(song => song['@id']);

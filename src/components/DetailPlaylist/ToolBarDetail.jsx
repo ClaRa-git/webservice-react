@@ -34,6 +34,9 @@ const ToolBarDetail = ({dataPlaylist}) => {
     }
 
     const handleDeletePlaylist = async (id) => {
+        const confirm = window.confirm('Voulez-vous vraiment supprimer cette playlist ?');
+        if(!confirm) return;
+
         try {
             const response = await axios.delete(`${API_URL}/playlists/${id}`);
             if(response.status === 204) {

@@ -15,11 +15,6 @@ const App = () => {
   // on récupère le state activeSong du slice player
   const { activeSong } = useSelector(state => state.player);
 
-  useEffect(() => {
-    // on met la barre de scroll tout en haut
-    window.scrollTo(0, 0);
-  }, [])
-  
 
   return (
     <div className='relative flex'>
