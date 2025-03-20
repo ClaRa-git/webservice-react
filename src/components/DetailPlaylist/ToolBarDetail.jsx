@@ -3,11 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { playPause, setActiveAlbum, setActiveSong } from '../../store/player/playerSlice';
 import PlayPause from '../Services/PlayPause';
 import { current } from '@reduxjs/toolkit';
+import { FaRegTrashAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { API_URL } from '../../constants/apiConstant';
 
 const ToolBarDetail = ({dataPlaylist}) => {
     const dispatch = useDispatch();
     const[index, setIndex] = useState(null);
     const {isPlaying, activeSong, currentIndex} = useSelector((state) => state.player);
+    const navigate = useNavigate();
 
     useEffect(() => {
       setIndex(currentIndex);
@@ -28,6 +33,17 @@ const ToolBarDetail = ({dataPlaylist}) => {
         dispatch(playPause(true));
     }
 
+    const handleDeletePlaylist = async (id) => {
+        try {
+            const response = await axios.delete(`${API_URL}/playlists/${id}`);
+            if(response.status === 204) {
+                navigate('/playlist');
+            }
+        } catch (error) {
+            console.log(`Erreur lors de la suppression de la playlist: ${error}`);
+        }
+    }
+
 
   return (
     <>
@@ -42,6 +58,9 @@ const ToolBarDetail = ({dataPlaylist}) => {
                     index={index}
                     data={data}
                 />
+            </div>
+            <div className='cursor-pointer mr-5'>
+                <FaRegTrashAlt size={30} className='text-white hover:text-red-500' onClick={() => handleDeletePlaylist(dataPlaylist?.id)} />
             </div>
         </div>
     </>
