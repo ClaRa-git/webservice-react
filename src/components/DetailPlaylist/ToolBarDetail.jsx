@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { playPause, setActiveAlbum, setActiveSong } from '../../store/player/playerSlice';
 import PlayPause from '../Services/PlayPause';
-import { current } from '@reduxjs/toolkit';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
